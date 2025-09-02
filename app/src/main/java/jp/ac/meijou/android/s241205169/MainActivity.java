@@ -55,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
             binding.text.setText(text + textTest);
         });
 
-        // 保存したDataStoreの値を読み込んで表示
-        prefDataStore.getString("name")
-                .ifPresent(name -> binding.text.setText(name));
+        // 保存したDataStoreの値を読み込んで表示（onStartに移行）
 
 
 
@@ -80,5 +78,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          */
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 保存したDataStoreの値を読み込んで表示(onCreateから移行)
+        prefDataStore.getString("name")
+                .ifPresent(name -> binding.text.setText(name));
     }
 }
