@@ -36,9 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
         // ここからDataStore
         prefDataStore = PrefDataStore.getInstance(this);
+        // 保存ボタンを押したときにDataStoreに保存
         binding.saveButton.setOnClickListener(view -> {
-            var text = binding.editTextText.getText().toString();
-            prefDataStore.setString("name", text);
+                    var text = binding.editTextText.getText().toString();
+                    prefDataStore.setString("name", text);
+        });
+
+        // 削除ボタンを押したときにDataStoreから削除
+        binding.deleteButton.setOnClickListener(view -> {
+            prefDataStore.removeString("name");
         });
         // ここまでDataStore
 
@@ -49,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
             binding.text.setText(text + textTest);
         });
 
+        // 保存したDataStoreの値を読み込んで表示
+        prefDataStore.getString("name")
+                .ifPresent(name -> binding.text.setText(name));
+
+
+
+        /**
         binding.editTextText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -66,5 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 binding.text.setText(editable.toString());
             }
         });
+         */
     }
 }

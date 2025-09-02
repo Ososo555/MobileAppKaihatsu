@@ -7,6 +7,8 @@ import androidx.datastore.preferences.core.PreferencesKeys;
 import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
 
+import java.util.Optional;
+
 import io.reactivex.rxjava3.core.Single;
 
 public class PrefDataStore {
@@ -31,7 +33,7 @@ public class PrefDataStore {
 
 
     /**
-     * Stringの値をを保存する
+     * Stringの値を保存する
      *
      * @param key   保存するキー
      * @param value 保存する値
@@ -46,4 +48,35 @@ public class PrefDataStore {
                 })
                 .subscribe();
     }
+
+    /**
+     * Stringの値を取得する
+     *
+     * @param key 取得するキー
+     * @return 取得したStringのOptional
+     */
+    public Optional<String> getString(String key) {
+        return dataStore.data()
+                .map(prefs -> {
+                    var prefKey = PreferencesKeys.stringKey(key);
+                    return Optional.ofNullable(prefs.get(prefKey));
+                })
+                .blockingFirst();
+    }
+
+    /**
+     * Stringの値を削除する
+     * @param key   削除するキー
+     */
+    public void removeString(String key) {
+        dataStore.updateDataAsync(prefsIn -> {
+            var mutablePreferences = prefsIn.toMutablePreferences();
+            var prefKey = PreferencesKeys.stringKey(key);
+
+            mutablePreferences.remove(prefKey);
+            return Single.just(mutablePreferences);
+        }).subscribe();
+    }
+
+
 }
