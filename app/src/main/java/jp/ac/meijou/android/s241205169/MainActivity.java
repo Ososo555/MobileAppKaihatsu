@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         binding.text.setText(R.string.text1);
         binding.button.setOnClickListener(view -> {
             var text = binding.editTextText.getText().toString();
-            binding.text.setText(text);
+            var textTest = binding.editTextText2.getText().toString();
+            binding.text.setText(text + textTest);
         });
 
         binding.editTextText.addTextChangedListener(new TextWatcher() {
