@@ -1,5 +1,14 @@
 package jp.ac.meijou.android.s241205169;
 
+import android.content.Context;
+
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.core.PreferencesKeys;
+import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava3.RxDataStore;
+
+import io.reactivex.rxjava3.core.Single;
+
 public class PrefDataStore {
     private static PrefDataStore instance;
     private final RxDataStore<Preferences> dataStore;
@@ -20,4 +29,21 @@ public class PrefDataStore {
         return instance;
     }
 
+
+    /**
+     * Stringの値をを保存する
+     *
+     * @param key   保存するキー
+     * @param value 保存する値
+     */
+    public void setString(String key, String value) {
+        dataStore.updateDataAsync(prefsIn -> {
+                    var mutablePreferences = prefsIn.toMutablePreferences();
+                    var prefKey = PreferencesKeys.stringKey(key);
+
+                    mutablePreferences.set(prefKey, value);
+                    return Single.just(mutablePreferences);
+                })
+                .subscribe();
+    }
 }
