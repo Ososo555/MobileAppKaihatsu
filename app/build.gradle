@@ -45,4 +45,7 @@ dependencies {
     // DataStoreのために追加
     implementation libs.datastore.preferences
     implementation libs.datastore.preferences.rxjava3
+
+    // 計算機の為に追加
+    implementation 'net.objecthunter:exp4j:0.4.8'
 }
