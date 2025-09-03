@@ -1,5 +1,6 @@
 package jp.ac.meijou.android.s241205169;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -34,6 +35,21 @@ public class MainActivity4 extends AppCompatActivity {
         // MainActivity2から渡された文字列を取得して表示
         var editText = getIntent().getStringExtra("title");
         binding.textView4.setText(editText);
+
+        // OKボタン
+        binding.buttonOk.setOnClickListener(view -> {
+            var intent = new Intent();
+            intent.putExtra("ret", "OK");       // "ret"というキーで"OK"という文字列を返す
+            setResult(RESULT_OK, intent);
+            finish();       // 画面を強制的に閉じる
+        });
+
+
+        // キャンセルボタン
+        binding.buttonCancel.setOnClickListener(view -> {
+            setResult(RESULT_CANCELED);     // キャンセルなのでIntentは不要。値無しでキャンセル
+            finish();       // 画面を強制的に閉じる
+        });
 
     }
 }
