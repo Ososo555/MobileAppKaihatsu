@@ -47,5 +47,14 @@ public class MainActivity2 extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // sendボタン
+        binding.buttonSend.setOnClickListener(view -> {
+            // EditTextの文字列を取得
+            var text = binding.editTextText3.getText().toString();
+            var intent = new Intent(this, MainActivity4.class);     // MainActivity4を起動する明示的Intentを作成
+            intent.putExtra("title", text);     // MainActivity4に"title"という名前のtextを渡す
+            startActivity(intent);      // MainActivity4を起動
+        });
+
     }
 }
