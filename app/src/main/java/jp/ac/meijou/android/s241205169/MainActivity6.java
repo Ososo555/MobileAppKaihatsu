@@ -28,6 +28,7 @@ public class MainActivity6 extends AppCompatActivity {
 
     private ActivityMain6Binding binding;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
