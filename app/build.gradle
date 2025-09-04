@@ -48,4 +48,8 @@ dependencies {
 
     // 計算機の為に追加
     implementation 'net.objecthunter:exp4j:0.4.8'
+
+    // Day4でインターネット通信の為に追加
+    implementation libs.okhttp
+    implementation libs.moshi
 }
